@@ -9,7 +9,7 @@ export function createChart(columns){
         type: 'scatter',
         data: {
             datasets: [{
-                label: 'Cars Miles per gallon versus Horsepower',
+                label: 'Retail Value',
                 data: columns,
                 backgroundColor: 'rgb(185, 185, 255)'
             }]
@@ -17,10 +17,10 @@ export function createChart(columns){
         options: {
             scales: {
                 x: {
-                    title: {display: true, text: 'Horsepower'}
+                    title: {display: true, text: 'Build Year'}
                 },
                 y: {
-                    title: {display: true, text: 'Miles per Gallon'}
+                    title: {display: true, text: 'Retail Value'}
                 }
             },
             layout: {
