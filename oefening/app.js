@@ -1,10 +1,12 @@
 import { createChart, updateChart } from "./scatterplot.js"
 
-const nn = ml5.neuralNetwork({task: 'regression', debug: false})
+const nn = ml5.neuralNetwork({task: 'regression', debug: true})
+// const savebtn = document.getElementById('save-button');
 
-//
-// demo data
-//
+function saveNN(){
+        nn.save()
+}
+
 function loadData(){
         Papa.parse("./data/utrecht-houseprices.csv", {
             download:true,
@@ -14,16 +16,15 @@ function loadData(){
         })
     }
 
-
 async function drawPredictions(data) {
         let predictions = []    
-        for (let by = 1970; by <= 2010; by += 1) {
-                const prediction = await nn.predict({Buildyear: by})       
-                predictions.push({x: by, y: prediction[0].retailvalue})    
+        for (let he = 80; he <= 260; he += 1) {
+                const prediction = await nn.predict({Housearea: he})       
+                predictions.push({x: he, y: prediction[0].retailvalue})   
         }
-        console.log(predictions)
-
+        
         updateChart("Predictions", predictions)
+        // nn.save()
 }
 
 function checkData(data) {
@@ -32,22 +33,34 @@ function checkData(data) {
         let testData  = data.slice(Math.floor(data.length * 0.8) + 1)
 
         const chardata = data.map (house => ({
-                x: house.Buildyear,
+                x: house.Housearea,
                 y: house.retailvalue
         }))
         
         for (let row of trainData) {
-                nn.addData({Buildyear:row.Buildyear}, {retailvalue: row.retailvalue})
+                nn.addData({Housearea:row.Housearea}, {retailvalue: row.retailvalue})
         }
 
         nn.normalizeData()
-        nn.train({ epochs:30}, ()=> drawPredictions())
+        nn.train({ epochs:10}, ()=> drawPredictions())
+
+
+        async function makePrediction() {
+                const testHouse = { Housearea: testData[0].Housearea, Gardensize: testData[0].Gardensize }
+                const pred = await nn.predict(testHouse)
+                console.log(pred[0].retailvalue)
+        }
 
         createChart(chardata)
+        makePrediction()
 }
 
 
+
+
+
 loadData()
+
 
 
     
