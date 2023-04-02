@@ -17,7 +17,7 @@ export function createChart(columns){
         options: {
             scales: {
                 x: {
-                    title: {display: true, text: 'Build Year'}
+                    title: {display: true, text: 'Square Meters'}
                 },
                 y: {
                     title: {display: true, text: 'Retail Value'}

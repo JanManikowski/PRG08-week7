@@ -1,7 +1,7 @@
 import { createChart, updateChart } from "./scatterplot.js"
 
 const nn = ml5.neuralNetwork({task: 'regression', debug: true})
-// const savebtn = document.getElementById('save-button');
+const savebtn = document.getElementById('save-button');
 
 function saveNN(){
         nn.save()
@@ -18,9 +18,9 @@ function loadData(){
 
 async function drawPredictions(data) {
         let predictions = []    
-        for (let he = 80; he <= 260; he += 1) {
-                const prediction = await nn.predict({Housearea: he})       
-                predictions.push({x: he, y: prediction[0].retailvalue})   
+        for (let ha = 80; ha <= 260; ha += 1) {
+                const prediction = await nn.predict({Housearea: ha})       
+                predictions.push({x: ha, y: prediction[0].retailvalue})   
         }
         
         updateChart("Predictions", predictions)
@@ -37,8 +37,8 @@ function checkData(data) {
                 y: house.retailvalue
         }))
         
-        for (let row of trainData) {
-                nn.addData({Housearea:row.Housearea}, {retailvalue: row.retailvalue})
+        for (let house of trainData) {
+                nn.addData({Housearea:house.Housearea}, {retailvalue: house.retailvalue})
         }
 
         nn.normalizeData()
@@ -60,8 +60,3 @@ function checkData(data) {
 
 
 loadData()
-
-
-
-    
-
