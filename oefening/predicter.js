@@ -1,46 +1,47 @@
-const nn = ml5.neuralNetwork({ task: 'regression', debug: false })
-const modelInfo = {
-  model: './model/model.json',
-  metadata: './model/model_meta.json',
-  weights: './model/model.weights.bin',
-};
-nn.load(modelInfo, modelLoaded);
-
-function predict(houseArea) {
-    const input = {
-      houseArea: houseArea
-      // gardenSize: gardenSize
-    };
-
-    nn.predict(input, (err, result) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      const predictedValue = result[0].value;
-      console.log(`Predicted retail value: ${predictedValue}`);
-    });
-  }  
-  
-  
-  
-  
+const nn = ml5.neuralNetwork({ task: 'regression', debug: true })
+nn.load('./model/model.json', modelLoaded)
 
 function modelLoaded() {
 
-    const form = document.getElementById('houseForm');
-    form.addEventListener('submit', event => {
-        event.preventDefault();
+      const houseAreaField = document.getElementById('houseArea')
+      const gardenSizeField = document.getElementById("gardenSize")
+      const bathroomsField = document.getElementById('bathrooms')
+      const balconyField = document.getElementById('balcony')
+      const buildyearField = document.getElementById('buildyear')
 
-        const houseArea = document.getElementById('houseArea').value;
-        // const gardenSize = document.getElementById("gardenSize").value
+      const predictBtn = document.getElementById('btn')
+      const result = document.getElementById('result')
 
-        // const housePred = {houseArea, gardenSize}
-        // const pred =  nn.predict(housePred)
-        // console.log(pred[0].retailvalue)
-        predict(houseArea);
+      predictBtn.addEventListener("click", predict)
 
-        });
+      async function predict() {
+
+        const Housearea = Number(houseAreaField.value)
+        const Gardensize = Number(gardenSizeField.value)
+        const bathrooms = Number(bathroomsField.value)
+        const Balcony = Number(balconyField.value)
+        const Buildyear = Number(buildyearField.value)
+
+        console.log("Input values are: ", {Housearea, Gardensize,bathrooms, Balcony, Buildyear })
+
+        const predResult = await nn.predict({Housearea, Gardensize,bathrooms, Balcony, Buildyear})
+
+        console.log(predResult)
+
+        const fmt = new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' })
+        const estimatedPrice = fmt.format(predResult[0].retailvalue)
+
+        result.innerText = `Predicted Price: ${estimatedPrice}`
+        console.log(estimatedPrice)
+      }  
 
 }
+
+
+  
+  
+  
+  
+
+
 
