@@ -31,7 +31,7 @@ function modelLoaded() {
         const fmt = new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' })
         const estimatedPrice = fmt.format(predResult[0].retailvalue)
 
-        result.innerText = `Predicted Price: ${estimatedPrice}`
+        result.innerText = `Voorspelde prijs is: ${estimatedPrice}`
         console.log(estimatedPrice)
       }  
 
