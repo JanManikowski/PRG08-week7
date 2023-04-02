@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+        <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+    
+        <script defer src="predicter.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <title>ML5 Neural Network Regression</title>
+    </head>
+    <body>
+        <h1>Hoe onrealistisch duur is jou droom huis in Utrecht?</h1>
+        <div id="container">
+          <p class="question">Hoeveel vierkante meter ?</p>
+          <p class="tip">Tussen de 80 and 250.</p>
+          <input type="text" id="houseArea" placeholder="Vierkante kante meters?" />
+
+          <p class="question">Hoe groot is de tuin?</p>
+          <p class="tip">Tussen de  10 and 1144.</p>
+          <input type="text" id="gardenSize" placeholder="Tuin grotte" />
+
+          <p class="question">Hoeveel badkamers?</p>
+          <p class="tip">Tussen de  1 and 2.</p>
+          <input type="text" id="bathrooms" placeholder="Plasplekken " />
+
+          <p class="question">Hoeveel balkons?</p>
+          <p class="tip">Tussen de  0 and 2.</p>
+          <input type="text" id="balcony" placeholder="Deel van je huis dat geen dak heeft, maar wel boven vloer is, dus niet tuin" />
+
+          <p class="question">Wanneer is die gebouwen?</p>
+          <p class="tip">Tussen de  1970 and 2010.</p>
+          <input type="text" id="buildyear" placeholder="Bouwjaar van je moeder" />
+
+          <button id="btn">Voorspel de prijs van je droomhuis die nooit gaat kunnen betalen!</button>
+
+          <div id="result">Antwoord kom hier te staan als je de button drukt</div>
+        </div>
+                
+      </body>
+</html>
